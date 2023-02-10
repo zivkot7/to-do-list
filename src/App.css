@@ -1,0 +1,155 @@
+*{
+    text-align: center;
+    font-family: 'Roboto Mono', sans-serif;
+}
+h1 {
+    font-size: 25px;
+}
+
+.wrapper {
+    margin: 0 400px;
+}
+.basket {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    position: relative; top: -2px;
+}
+.pen {
+    background-color: transparent;
+    border: none;
+    font-size: 11px;
+    position: relative; top: -2px; left: 5px;
+    
+}
+.pen::after {
+    color: orange;
+    content: '\f304';
+    font: var(--fa-font-solid);
+    font-size: 12px;
+    
+}
+.basket::after{
+    content: '\f2ed';
+    font: var(--fa-font-solid);
+    font-size: 13px;
+    color: rgb(221, 33, 61);
+}
+.finished {
+    color:rgb(221, 33, 61);
+    text-decoration: line-through;
+    border: 1.5px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.list-item {
+    border: 1.5px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-item:checked{
+    color: rgb(221, 33, 61);
+    text-decoration: line-through;
+}
+p{
+    padding-left: 20px;
+    align-items: center;
+}
+Input {
+    position: relative; left: 16px;
+    margin: 15px 10px;
+    text-align: start;
+    padding: 5px;
+}
+.new-todo-box {
+    border: 1.5px solid lightgrey;
+    border-radius: 5px;
+}
+
+.add-new-task {
+    width: 625px;
+    padding: 7px 0;
+    margin-bottom: 15px;
+    background-color: rgb(39, 170, 185);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+.btnAll, .btnDone {
+    width: 202px;
+    margin-right: 20px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    background-color: rgb(39, 170, 185);
+    padding: 7px 0;
+    cursor: pointer;
+}
+.btnTodo {
+    width: 202px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    background-color: rgb(39, 170, 185);
+    padding: 7px 0;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+.delete-all-tasks {
+    border-radius: 3px;
+    border: none;
+    color: white;
+     padding: 7px 0;
+    width: 313px;
+    background-color: rgb(221, 33, 61);
+}
+.delete-done-tasks{
+    background-color: rgb(221, 33, 61);
+    border-radius: 3px;
+    margin-right: 20px;
+    padding: 7px 0;
+    border: none;
+    color: white;
+    width: 313px;
+}
+.book{
+    position: relative; top: 46px; left: 14px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 30px;
+    height: 31px;
+    background-color: rgb(39, 170, 185);;
+}
+.book::after {
+    content: '\f02d';
+    font: var(--fa-font-solid);
+    color: white;
+    position: relative; top: 6px;
+}
+input[type="checkbox"] {
+  accent-color: green;
+}
+.edit-box {
+    border: 1.5px solid lightgrey;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.edit-box > Input {
+    margin: 7px 0;
+}
+.edit-box > Button {
+    margin: 10px 5px;
+}
+
+
+
+
+
+
+
