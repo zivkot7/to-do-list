@@ -1,192 +1,170 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ToDoListItem from "../ToDoListItem/ToDoListItem";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 
-class ToDoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      enteredInput: "",
-      listItems: [],
-      isEditable: "",
-      editInput: "",
-    };
-  }
-  addNewTodoItem = () => {
+const ToDoList = () => {
+  const [enteredInput, setEnteredInput] = useState("");
+  const [listItems, setListItems] = useState([]);
+  const [isEditable, setIsEditable] = useState("");
+  const [editInput, setEditInput] = useState("");
+  const [showIsDone, setShowIsDone] = useState(false);
+  const [showNotDone, setShowNotDone] = useState(false);
+
+  const addNewTodoItem = () => {
     const id = Date.now();
     const createdAt = new Date().toUTCString().split(" G")[0];
-    this.setState((prevState) => ({
-      listItems: [
-        ...prevState.listItems,
-        { id, text: prevState.enteredInput, createdAt, isDone: false },
-      ],
-      enteredInput: "",
-    }));
+    setListItems(
+      [...listItems, { id, text: enteredInput, createdAt, isDone: false }],
+      setEnteredInput("")
+    );
   };
-  onEditExit = () => {
-    this.setState({
-      isEditable: "",
-    });
+  const onEditExit = () => {
+    setIsEditable("");
   };
-  onEditInputChange = (e) => {
-    this.setState({ editInput: e.target.value });
+  const onEditInputChange = (e) => {
+    setEditInput(e.target.value);
   };
-  onEditSave = (e, id) => {
-    this.setState({
-      listItems: [
-        ...this.state.listItems?.filter((item) => {
+  const onEditSave = (e, id) => {
+    setListItems(
+      [
+        ...listItems?.filter((item) => {
           if (item.id === id) {
-            return (item.text = this.state.editInput);
+            return (item.text = editInput);
           }
           return item;
         }),
       ],
-      isEditable: "",
-    });
+      setIsEditable("")
+    );
   };
-  deleteTodoListItem = (id) => {
-    this.setState((prevState) => ({
-      listItems: prevState.listItems.filter((item) => item.id !== id),
-    }));
+  const deleteTodoListItem = (id) => {
+    setListItems(listItems.filter((item) => item.id !== id));
   };
-  onEditingItem = (e, id) => {
-    this.setState({ isEditable: id });
+  const onEditingItem = (e, id) => {
+    setIsEditable(id);
   };
-  onInputChange = (el) => {
-    this.setState({ enteredInput: el.target.value });
+  const onInputChange = (el) => {
+    setEnteredInput(el.target.value);
   };
-  markAllAsDone = () => {
-    this.setState(() => ({
-      listItems: this.state.listItems.map((item) => {
+  const markAllAsDone = () => {
+    setListItems(
+      listItems.map((item) => {
         return { ...item, isDone: true };
-      }),
-    }));
+      })
+    );
   };
-  deleteAllItems = () => {
-    this.setState({
-      listItems: [],
-    });
+  const deleteAllItems = () => {
+    setListItems([]);
   };
-  deleteAllDoneItems = () => {
-    this.setState(() => ({
-      listItems: this.state.listItems.filter((item) => !item.isDone),
-    }));
+  const deleteAllDoneItems = () => {
+    setListItems(listItems.filter((item) => !item.isDone));
   };
-  checkedCheckBox = (id) => {
-    this.setState((prevState) => ({
-      listItems: prevState.listItems.map((item) => {
+  const checkedCheckBox = (id) => {
+    setListItems(
+      listItems.map((item) => {
         if (item.id === id) {
           return { ...item, isDone: !item.isDone };
         }
         return item;
-      }),
-    }));
+      })
+    );
   };
-  showFinished = () => {
-    this.setState({
-      showIsDone: true,
-      showNotDone: false,
-    });
+  const showFinished = () => {
+    setShowIsDone(true);
+    setShowNotDone(false);
   };
-  showNotFinished = () => {
-    this.setState({
-      showNotDone: true,
-      showIsDone: false,
-    });
+  const showNotFinished = () => {
+    setShowNotDone(true);
+    setShowIsDone(false);
   };
-  showAll = () => {
-    this.setState({ showIsDone: false, showNotDone: false });
+  const showAll = () => {
+    setShowIsDone(false);
+    setShowNotDone(false);
   };
-  render() {
-    return (
-      <div>
-        <h1>TodoInput</h1>
-        <div className="new-todo-box">
-          <div className="book"></div>
-          <Input
-            placeholder="New Todo"
-            size={71}
-            type="text"
-            value={this.state.enteredInput}
-            onChange={this.onInputChange}
-          />
-          <br />
-          <Button
-            type="submit"
-            className="add-new-task"
-            text="Add new task"
-            onClick={this.addNewTodoItem}
-          />
-        </div>
-        <h1>TodoList</h1>
-        <Button
-          text="All"
-          type="submit"
-          className="btnAll"
-          onClick={this.showAll}
-        />
-        <Button
-          text="Done"
-          type="submit"
-          className="btnDone"
-          onClick={this.showFinished}
-        />
-        <Button
-          text="Todo"
-          type="submit"
-          className="btnTodo"
-          onClick={this.showNotFinished}
-        />
-        <div>
-          {this.state.listItems
-            .filter((item) => {
-              if (this.state.showIsDone && item.isDone) {
-                return true;
-              }
-              if (this.state.showNotDone && !item.isDone) {
-                return true;
-              }
-              if (!this.state.showIsDone && !this.state.showNotDone) {
-                return true;
-              }
-              return false;
-            })
-            .map((item, index) => (
-              <ToDoListItem
-                className={item.isDone ? "finished" : "list-item"}
-                item={item}
-                key={index}
-                editValue={this.state.editInput}
-                textEdit={item.text}
-                editable={this.state.isEditable}
-                value={this.state.enteredInput}
-                size={50}
-                onEditChange={this.onEditInputChange}
-                onDelete={() => this.deleteTodoListItem(item.id)}
-                onChange={() => this.checkedCheckBox(item.id)}
-                onEdit={(e) => this.onEditingItem(e, item.id)}
-                onExit={(e) => this.onEditExit(e, item.id)}
-                onSave={(e) => this.onEditSave(e, item.id)}
-              />
-            ))}
-        </div>
 
-        <Button
-          type="submit"
-          className="delete-done-tasks"
-          text="Delete done tasks"
-          onClick={this.deleteAllDoneItems}
+  return (
+    <div>
+      <h1>TodoInput</h1>
+      <div className="new-todo-box">
+        <div className="book"></div>
+        <Input
+          placeholder="New Todo"
+          size={71}
+          type="text"
+          value={enteredInput}
+          onChange={onInputChange}
         />
+        <br />
         <Button
           type="submit"
-          className="delete-all-tasks"
-          text="Delete all tasks"
-          onClick={this.deleteAllItems}
+          className="add-new-task"
+          text="Add new task"
+          onClick={addNewTodoItem}
         />
       </div>
-    );
-  }
-}
+      <h1>TodoList</h1>
+      <Button text="All" type="submit" className="btnAll" onClick={showAll} />
+      <Button
+        text="Done"
+        type="submit"
+        className="btnDone"
+        onClick={showFinished}
+      />
+      <Button
+        text="Todo"
+        type="submit"
+        className="btnTodo"
+        onClick={showNotFinished}
+      />
+      <div>
+        {listItems
+          .filter((item) => {
+            if (showIsDone && item.isDone) {
+              return true;
+            }
+            if (showNotDone && !item.isDone) {
+              return true;
+            }
+            if (!showIsDone && !showNotDone) {
+              return true;
+            }
+            return false;
+          })
+          .map((item, index) => (
+            <ToDoListItem
+              className={item.isDone ? "finished" : "list-item"}
+              item={item}
+              key={index}
+              editValue={editInput}
+              textEdit={item.text}
+              editable={isEditable}
+              value={enteredInput}
+              size={50}
+              onEditChange={onEditInputChange}
+              onDelete={() => deleteTodoListItem(item.id)}
+              onChange={() => checkedCheckBox(item.id)}
+              onEdit={(e) => onEditingItem(e, item.id)}
+              onExit={(e) => onEditExit(e, item.id)}
+              onSave={(e) => onEditSave(e, item.id)}
+            />
+          ))}
+      </div>
+
+      <Button
+        type="submit"
+        className="delete-done-tasks"
+        text="Delete done tasks"
+        onClick={deleteAllDoneItems}
+      />
+      <Button
+        type="submit"
+        className="delete-all-tasks"
+        text="Delete all tasks"
+        onClick={deleteAllItems}
+      />
+    </div>
+  );
+};
 
 export default ToDoList;

@@ -1,32 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      value,
-      size,
-      checked,
-      placeholder,
-      type,
-      onChange,
-      className,
-      onClick,
-    } = this.props;
-    return (
-      <input
-        className={className}
-        checked={checked}
-        size={size}
-        value={value}
-        placeholder={placeholder}
-        type={type}
-        onChange={onChange}
-        onClick={onClick}
-      ></input>
-    );
-  }
-}
+const Input = (props) => {
+  const {
+    value,
+    size,
+    checked,
+    placeholder,
+    type,
+    onChange,
+    className,
+    onClick,
+  } = props;
+  return (
+    <input
+      className={className}
+      checked={checked}
+      size={size}
+      value={value}
+      placeholder={placeholder}
+      type={type}
+      onChange={onChange}
+      onClick={onClick}
+    ></input>
+  );
+};
+
 export default Input;
