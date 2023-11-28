@@ -85,7 +85,7 @@ const ToDoList = () => {
 
   return (
     <div>
-      <h1>TodoInput</h1>
+      <h1>Todo list</h1>
       <div className="new-todo-box">
         <div className="book"></div>
         <Input
@@ -103,7 +103,7 @@ const ToDoList = () => {
           onClick={addNewTodoItem}
         />
       </div>
-      <h1>TodoList</h1>
+      <h1>My todo list</h1>
       <Button text="All" type="submit" className="btnAll" onClick={showAll} />
       <Button
         text="Done"
