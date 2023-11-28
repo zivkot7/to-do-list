@@ -97,23 +97,29 @@ const ToDoList = () => {
         />
         <br />
         <Button
-          type="submit"
+          type="button"
           className="add-new-task"
           text="Add new task"
           onClick={addNewTodoItem}
         />
       </div>
       <h1>My todo list</h1>
-      <Button text="All" type="submit" className="btnAll" onClick={showAll} />
+      <Button text="All" type="button" className="btnAll" onClick={showAll} />
       <Button
         text="Done"
-        type="submit"
+        type="button"
         className="btnDone"
         onClick={showFinished}
       />
       <Button
+        type="button"
+        text="Mark all as done"
+        className="btnAll"
+        onClick={markAllAsDone}
+      />
+      <Button
         text="Todo"
-        type="submit"
+        type="button"
         className="btnTodo"
         onClick={showNotFinished}
       />
@@ -152,13 +158,13 @@ const ToDoList = () => {
       </div>
 
       <Button
-        type="submit"
+        type="button"
         className="delete-done-tasks"
         text="Delete done tasks"
         onClick={deleteAllDoneItems}
       />
       <Button
-        type="submit"
+        type="button"
         className="delete-all-tasks"
         text="Delete all tasks"
         onClick={deleteAllItems}
